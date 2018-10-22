@@ -19,20 +19,17 @@
                 </tr>
             </thead>
             <tr class="list" v-for="user in filteredUsers" :key="user.id" v-on:click="showUserInformation(user)">
-                <td>{{ user.id }}</td>
-                <td>{{user.name}}</td>
-                <td>{{ user.position }}</td>
-                <td>{{ user.address }}</td>
-                <td>{{ user.age }}</td>
+                <td v-for="(value, index) in user" :key="index">{{ value }}</td>
             </tr>
-            <hr>  
-        </table>    
+            <hr>
+        </table>
     </div>
 </template>
 
 <script>
 
 import searchMixins from '../mixins/searchlist.js';
+import UserService from '../services/UserService.js';
 
 export default {
     name: 'userTable',
@@ -53,6 +50,7 @@ export default {
             UserService.getUserInformation(user.id).then(
                 ((response) => {
                     this.selectedUser = {...user, ...response};
+                    
                 }),
                 (err) => {
                     console.log("fallo");

@@ -1,7 +1,7 @@
 const UserService = {
     getUsers () {
         return new Promise(function (resolve, reject) {
-            Vue.http.get('http://localhost:3030/users').then(
+            Vue.http.get('https://jsonplaceholder.typicode.com/todos').then(
                 function (response) {
                     resolve(response.body)
                 },
@@ -14,7 +14,7 @@ const UserService = {
 
     getUserInformation (id) {
         return new Promise((resolve, reject) => {
-            Vue.http.get('http://localhost:3030/users/info/' + id).then(
+            Vue.http.get('https://jsonplaceholder.typicode.com/posts/' + id).then(
                 (response) => {
                     resolve(response.body)
                 },

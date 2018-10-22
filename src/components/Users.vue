@@ -28,6 +28,7 @@ export default {
         UserService.getUsers().then(
             ((response) => {
                 this.users = response;
+                console.log(this.$store.state.counter)
             }),
             (err) => {
                 console.log("Get Users request fail!")
@@ -35,7 +36,9 @@ export default {
         )
     },
     computed: {
-
+        value() {
+            return this.$store.getters.getTeam;
+        }
     }
 }
 
