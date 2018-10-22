@@ -10,6 +10,7 @@ export default new Vuex.Store({
         team: [],
         userInfoDisplay: {},
         counter: 3,
+        jared: '',
     },
     // mostrar los states. No se pueden mutar los estados
     getters: {
