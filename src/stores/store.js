@@ -1,42 +1,45 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import store from './store';
-window.Vuex = Vuex
-Vue.use(Vuex)
 
+Vue.use(Vuex);
 
 export default new Vuex.Store({
     // Los estados de la aplicacion
     state: {
         team: [],
         userInfoDisplay: {},
-        counter: 415,
-        jared: '',
+        counter: 465,
     },
     // mostrar los states. No se pueden mutar los estados
     getters: {
-        getTeam = state => {
+        getTeam : state => {
             return state.team;
         },
-        getCounter = state => {
+        getTeamLength : state => {
+            return state.team.length;
+        },
+        checkTeamMember : (state) => (id) => {
+            return state.team.find(elem =>  elem.id == id );
+        },
+        getCounter: state => {
             return state.counter;
         }
     },
     // mutar el state.
     // las mutations son siempre sincronicas
     mutations: {
-        addUserToTeam(state, user) => {
+        addUserToTeam(state, user) {
             state.team.push(user);
         },
-        increment = (state, num) => {
+        increment(state, num) {
             state.counter += num;
         }
     },
     // commitear las mutaciones, son asincronicas
     actions: {
-        asyncAddCounter({commit}) {
+        asyncAddCounter({commit}){
             setTimeout(() => {
-                store.commit('increment', 10)
+                state.commit('increment', 10)
             }, 1000);
         }
     }

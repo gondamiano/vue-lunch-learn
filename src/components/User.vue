@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <div>
+        <div v-for="user in theUsers" :key="user.id">
             <div>{{ user.id }}</div>
-            <div>{{user.work}}</div>
-            <div>{{ user.position }}</div>
-            <div>{{ user.address }}</div>
-            <div>{{ user.age }}</div>
+            <div><b>{{user.title}}</b></div>
+            <div>{{ user.body }}</div>
+            <div>{{ user.completed }}</div>
+            <hr>
         </div>
     </div>
 </template>
@@ -13,7 +13,20 @@
 <script>
 export default {
     name: 'userInfo',
-    props: ['user'],
+    data() {
+        return {
+            bool: true,            
+        }
+    },
+
+    created() {
+        //this.theUsers = this.$store.getters.getTeam;
+    },
+    computed: {
+        theUsers() {
+            return this.$store.getters.getTeam;
+        }
+    }
 }
 </script>
 

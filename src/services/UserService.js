@@ -9,7 +9,7 @@ const UserService = {
                     reject(response)
                 }
             )
-        })   
+        })
     },
 
     getUserInformation (id) {

@@ -6,17 +6,17 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <!--<a class="nav-link" @click="redirect(msg)" >{{ msg }}</a> -->
       <router-link :to="{ name: 'Home'}" class="item"> Home  </router-link>
     </li>
     <li class="nav-item">
-      <!--<a class="nav-link" @click="redirect(msg)" >{{ msg }}</a> -->
-      <router-link :to="{ name: 'Users'}" class="item"> Users </router-link>
+      <router-link :to="{ path: '/Users'}" class="item"> Users </router-link>
     </li>
     <li class="nav-item">
-      <!--<a class="nav-link" @click="redirect(msg)" >{{ msg }}</a> -->
-      <router-link :to="{ name: 'About'}" class="item"> About </router-link>
-    </li>
+      <router-link :to="{ name: 'About', params: {rol: '12', charge:'3', name: 'johnny bravo' }}" class="item"> About </router-link>
+    </li>    
+     <li class="nav-item">
+     <a class="nav-link" @click="redirect()" > More </a>
+    </li>    
   </ul>
 </nav>
 </template>
@@ -31,8 +31,10 @@ export default {
     },
     
     methods: {
-        redirect(msg) {
-            window.location.replace(msg)
+        redirect() {
+            //this.$router.push('/users');
+            //this.$router.replace('/users');
+            this.$router.go(-1);
         }
     }
 }

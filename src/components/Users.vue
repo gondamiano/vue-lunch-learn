@@ -1,21 +1,24 @@
 <template>
     <div class="container" v-show="users != null" >
+        <team-counter></team-counter>
         <user-table v-bind:users="this.users"></user-table>
-        <user-info v-bind:user="this.selectedUser"></user-info>
+        <user-info></user-info>
     </div>
 </template>
 
 <script>
 
-import UserService from '../services/UserService.js'
+import UserService from '../services/UserService.js';
 import userInfo from './User.vue';
 import userTable from './userTable.vue';
+import teamCounter from './TeamCounter.vue';
 
 export default {
     name: 'Users',
     components: {
         'user-info' : userInfo,
         'user-table': userTable,
+        'team-counter' : teamCounter,
     },
     data() {
         return {
@@ -25,7 +28,18 @@ export default {
         }
     },
     created() {
-        UserService.getUsers().then(
+      console.log(this.$store)
+      console.log(this.$store.state.counter)
+      axios.get('https://jsonplaceholder.typicode.com/todos').then(
+        (response) => {
+          this.users = response.data;
+        })
+        .catch((err) => {
+          console.log("Get Users request fail!")
+        }
+      )
+    }, 
+        /*UserService.getUsers().then(
             ((response) => {
                 this.users = response;
                 console.log(this.$store.state.counter)
@@ -34,7 +48,7 @@ export default {
                 console.log("Get Users request fail!")
             }
         )
-    },
+    },*/
     computed: {
         value() {
             return this.$store.getters.getTeam;

@@ -18,7 +18,7 @@
                     <th v-for="(row, index) in users[0]" :key="index">{{index}}</th>
                 </tr>
             </thead>
-            <tr class="list" v-for="user in filteredUsers" :key="user.id" v-on:click="showUserInformation(user)">
+            <tr class="list" v-for="user in filteredUsers.slice(0,20)" :key="user.id" v-on:click="showUserInformation(user)">
                 <td v-for="(value, index) in user" :key="index">{{ value }}</td>
             </tr>
             <hr>
@@ -39,6 +39,7 @@ export default {
         return {
             text: '',
             searchBy: '',
+            bool: undefined,
         }
     },
     methods: {
@@ -47,16 +48,43 @@ export default {
         },
         showUserInformation(user) {
             console.log(user.id);
-            UserService.getUserInformation(user.id).then(
+          /*  UserService.getUserInformation(user.id).then(
                 ((response) => {
                     this.selectedUser = {...user, ...response};
-                    
                 }),
                 (err) => {
                     console.log("fallo");
                 }
-            )
+            )*/
+
+            axios.get('https://jsonplaceholder.typicode.com/posts/' + user.id).then(
+              (response) => {
+                //this.$store.state.counter = 12341;
+                //this.$store.state.team.push({...user, ...response.data});
+
+                this.$store.dispatch('asyncAddCounter');
+
+                this.bool = this.$store.getters.checkTeamMember(user.id);
+                console.log(response.data);
+                if(this.bool == undefined) {
+                    this.$store.commit('addUserToTeam', {...user, ...response.data});
+                }
+              })
+              .catch((err) => {
+                console.log('La llamada fallo');
+                this.router.push(home);
+              })
         },
     }
 }
 </script>
+
+<style scoped>
+
+.list:hover {
+    background-color: #41b883;
+    opacity: 1;
+    cursor: pointer;
+}
+
+</style>

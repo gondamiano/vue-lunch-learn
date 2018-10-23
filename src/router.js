@@ -14,25 +14,23 @@ export default new Router({
             path: '/',
             name: 'Home',
             component: Home,
-            auth: true
         },
         {
             path: '/Users',
             name: 'Users',
             component: Users,
-            auth: true
         },
         {
             path: '/user',
             name: 'User',
             component: User,
-            auth: true
         },
         {
-            path: '/about',
+            path: '/about/:rol/:charge/:name',
             name: 'About',
             component: About,
-            auth: true
-        }
+            props: true,
+        },
+
     ]
 })
